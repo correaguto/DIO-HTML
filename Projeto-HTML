@@ -1,0 +1,38 @@
+<section id="info" style="padding: 2rem;">
+  <h1>Informações Importantes</h1>
+  <h2>Sobre Nossas Velas</h2>
+  <p>As velas <strong>Semprevelasacesas</strong> são feitas com ingredientes naturais e <mark>alta qualidade</mark>. Cada vela é cuidadosamente produzida para garantir <u>aroma intenso</u> e duradouro.</p>
+  
+  <h3>Benefícios das Velas Aromáticas</h3>
+  <p><i>Relaxe sua mente</i> e transforme seu ambiente com nossos aromas exclusivos.</p>
+
+  <h4>Como Usar</h4>
+  <ol>
+    <li>Coloque a vela sobre uma superfície resistente.</li>
+    <li><abbr title="Não deixe a vela acesa sem supervisão">Nunca deixe a vela queimada sozinha</abbr>.</li>
+    <li>Apague a vela antes de sair do ambiente.</li>
+  </ol>
+
+  <h5>Tipos de Aromas</h5>
+  <ul>
+    <li>Lavanda <small>(relaxante)</small></li>
+    <li>Baunilha <small>(aconchegante)</small></li>
+    <li>Cítrico <small>(revigorante)</small></li>
+  </ul>
+
+  <h6>Nota Importante</h6>
+  <p><del>Velas feitas com fragrâncias artificiais</del> <font color="green">Somente aromas naturais e seguros!</font></p>
+
+  <hr />
+
+  <blockquote cite="https://www.aromaterapia.com">
+    "As velas aromáticas não só perfumam o ambiente, mas também podem melhorar seu humor e relaxamento." 
+    <br />— Aromaterapia.com
+  </blockquote>
+
+  <p>Use nossas velas e sinta a diferença! Confira nossos <a href="#produtos">produtos aqui</a>.</p>
+
+  <p>Nota:  H<sub>2</sub>O é a fórmula da água, enquanto que o CO<sub>2</sub> é o dióxido de carbono.</p>
+
+  <p>Exemplo de potência: 5 m<sup>2</sup> (metros quadrados) de área aromatizada.</p>
+</section>
