@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini Wiki - O Senhor dos Anéis</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f0f0;
+      color: #222;
+      line-height: 1.6;
+      padding: 1rem;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    header, main, footer, nav, article, section, aside {
+      display: block;
+    }
+
+    header {
+      background-color: #2e3a59;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    nav[aria-label="Breadcrumb"] {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      color: #cfd8dc;
+    }
+    nav[aria-label="Breadcrumb"] a {
+      color: #90caf9;
+      text-decoration: none;
+    }
+    nav[aria-label="Breadcrumb"] a:hover,
+    nav[aria-label="Breadcrumb"] a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    main {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    h2 {
+      border-bottom: 3px solid #2e3a59;
+      margin-bottom: 1rem;
+      padding-bottom: 0.3rem;
+      color: #2e3a59;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    /* Destaques */
+    strong {
+      color: #0d47a1;
+    }
+
+    /* Lista */
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    a.internal-link {
+      color: #1976d2;
+      text-decoration: underline dotted;
+      cursor: pointer;
+    }
+    a.internal-link:hover,
+    a.internal-link:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    /* Rodapé */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <h1>Mini Wiki</h1>
+  <nav aria-label="Breadcrumb">
+    <a href="#">Página Inicial</a> &rsaquo;
+    <a href="#">Literatura</a> &rsaquo;
+    <span aria-current="page">O Senhor dos Anéis</span>
+  </nav>
+</header>
+
+<main role="main">
+  <article aria-labelledby="titulo-article">
+    <h2 id="titulo-article">O Senhor dos Anéis</h2>
+
+    <p><strong>O Senhor dos Anéis</strong> é uma obra literária de fantasia épica escrita por J.R.R. Tolkien, originalmente publicada em três volumes entre 1954 e 1955.</p>
+
+    <p>Esta saga acompanha a jornada do hobbit Frodo Bolseiro para destruir o Um Anel, um artefato poderoso criado pelo Senhor do Escuro, Sauron, para controlar toda a Terra-média.</p>
+
+    <section aria-labelledby="sec-sinopse">
+      <h3 id="sec-sinopse">Sinopse</h3>
+      <p>Ao herdar o Um Anel de seu tio Bilbo, Frodo embarca numa perigosa aventura com seus amigos para levar o anel até a Montanha da Perdição, onde pode ser destruído. A narrativa envolve temas como amizade, coragem, sacrifício e a luta contra o mal.</p>
+    </section>
+
+    <section aria-labelledby="sec-personagens">
+      <h3 id="sec-personagens">Personagens Principais</h3>
+      <ul>
+        <li><strong>Frodo Bolseiro</strong> – o protagonista, um hobbit que carrega o fardo do Um Anel.</li>
+        <li><strong>Gandalf</strong> – o mago que guia a Sociedade do Anel.</li>
+        <li><strong>Aragorn</strong> – herdeiro dos reis humanos, líder valente.</li>
+        <li><strong>Legolas</strong> – elfo arqueiro habilidoso.</li>
+        <li><strong>Gimli</strong> – anão guerreiro.</li>
+        <li><strong>Samwise Gamgi</strong> – fiel amigo e companheiro de Frodo.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="sec-curiosidades">
+      <h3 id="sec-curiosidades">Curiosidades</h3>
+      <blockquote cite="https://www.jrrtolkien.com/">
+        J.R.R. Tolkien criou línguas inteiras e um mundo fictício detalhado para a Terra-média, que inspirou inúmeras adaptações em livros, filmes e jogos.
+      </blockquote>
+    </section>
+
+    <p>Para saber mais, visite a <a href="https://pt.wikipedia.org/wiki/O_Senhor_dos_An%C3%A9is" class="internal-link" target="_blank" rel="noopener noreferrer">página oficial da Wikipedia</a>.</p>
+  </article>
+</main>
+
+<footer role="contentinfo">
+  <p>Mini Wiki &copy; 2025 - Projeto de Treinamento em Semântica e Acessibilidade</p>
+</footer>
+
+</body>
+</html>
