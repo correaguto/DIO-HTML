@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clone YouTube - Completo com Cards Reais e Modal</title>
+<style>
+  /* Reset básico */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    color: #111;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  header {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header h1 {
+    font-size: 1.5rem;
+    color: #cc0000;
+    cursor: pointer;
+  }
+  header input[type="search"] {
+    width: 50%;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 1rem;
+  }
+  header button {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+  }
+  header button:hover, header h1:hover {
+    background-color: #aa0000;
+  }
+
+  /* MAIN CONTAINER */
+  main {
+    display: flex;
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 2rem;
+  }
+
+  /* SIDEBAR */
+  nav.sidebar {
+    width: 220px;
+    border-right: 1px solid #ddd;
+    padding-right: 1rem;
+  }
+  nav.sidebar ul {
+    list-style: none;
+  }
+  nav.sidebar li {
+    margin-bottom: 1rem;
+  }
+  nav.sidebar a {
+    color: #111;
+    text-decoration: none;
+    font-weight: 600;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+  nav.sidebar a:hover,
+  nav.sidebar a:focus {
+    background-color: #f0f0f0;
+    outline: none;
+  }
+
+  /* CONTENT - GRID DE VÍDEOS */
+  section.content {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-left: 1rem;
+    justify-content: flex-start;
+  }
+
+  /* CARD DE VÍDEO */
+  .video-card {
+    width: 250px;
+    cursor: pointer;
+    user-select: none;
+    outline-offset: 2px;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #fff;
+  }
+  .video-card:focus,
+  .video-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    outline: none;
+  }
+
+  .thumb {
+    width: 100%;
+    height: 140px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 8px;
+  }
+
+  .video-info {
+    padding: 0 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .video-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* limita a 2 linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #111;
+  }
+  .channel-name {
+    font-size: 0.875rem;
+    color: #555;
+    margin-bottom: 2px;
+  }
+  .video-meta {
+    font-size: 0.8rem;
+    color: #777;
+  }
+
+  /* MODAL - FUNDO */
+  .modal-bg {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    animation: fadeIn 0.3s forwards;
+  }
+  .modal-bg.active {
+    display: flex;
+  }
+
+  /* MODAL - CONTAINER */
+  .modal {
+    background: white;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transform: translateY(-50px);
+    opacity: 0;
+    animation: slideDown 0.3s forwards;
+    position: relative;
+  }
+  .modal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .modal h2 {
+    margin-bottom: 1rem;
+    color: #cc0000;
+  }
+  .modal form {
+    display: flex;
+    flex-direction: column;
+  }
+  .modal label {
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+  }
+  .modal input, .modal textarea {
+    padding: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  .modal textarea {
+    resize: vertical;
+  }
+  .modal button.submit-btn {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+  }
+  .modal button.submit-btn:hover {
+    background-color: #aa0000;
+  }
+  .modal button.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+  }
+  .modal button.close-btn:focus {
+    outline: 2px solid #cc0000;
+  }
+
+  /* ANIMAÇÕES */
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 tabindex="0" role="banner" aria-label="Logo YouTube clone">YouTube</h1>
+  <input type="search" aria-label="Buscar vídeos" placeholder="Pesquisar" />
+  <button id="openModalBtn" aria-haspopup="dialog">Enviar vídeo</button>
+</header>
+
+<main>
+  <nav class="sidebar" aria-label="Menu lateral">
+    <ul>
+      <li><a href="#" tabindex="0">Início</a></li>
+      <li><a href="#" tabindex="0">Em alta</a></li>
+      <li><a href="#" tabindex="0">Inscrições</a></li>
+      <li><a href="#" tabindex="0">Biblioteca</a></li>
+    </ul>
+  </nav>
+
+  <section class="content" aria-label="Lista de vídeos">
+    <article class="video-card" tabindex="0" role="article" aria-label="Vídeo: Tutorial de CSS Flexbox">
+      <div class="thumb" style="background-image:url('https://i.ytimg.com/vi/3JluqTojuME/hqdefault.jpg');" aria-hidden="true"></div>
+      <div class="video-info">
+        <h3 class="video-title">Tutorial de CSS Flexbox para criar layouts responsivos e modernos</h3>
+        <p class="channel-name">Canal WebDev</p>
+        <p class="video-meta">1,2 mi visualizações • 2 meses atrás</p>
+      </div>
+    </article>
+
+    <article class="video-card" tabindex="0" role="article" aria-label="Vídeo: Curso completo de JavaScript">
+      <div class="thumb" style="background-image:url('https://i.ytimg.com/vi/PkZNo7MFNFg/hqdefault.jpg');" aria-hidden="true"></div>
+      <div class="video-info">
+        <h3 class="video-title">Curso completo de JavaScript - Do básico ao avançado</h3>
+        <p class="channel-name">Dev Academy</p>
+        <p class="video-meta">950 mil visualizações • 5 meses atrás</p>
+      </div>
+    </article>
+
+    <article class="video-card" tabindex="0" role="article" aria-label="Vídeo: Como criar sites modernos">
+      <div class="thumb" style="background-image:url('https://i.ytimg.com/vi/UB1O30fR-EE/hqdefault.jpg');" aria-hidden="true"></div>
+      <div class="video-info">
+        <h3 class="video-title">Como criar sites modernos, responsivos e bonitos com HTML e CSS</h3>
+        <p class="channel-name">Code Tips</p>
+        <p class="video-meta">300 mil visualizações • 3 semanas atrás</p>
+      </div>
+    </article>
+
+    <article class="video-card" tabindex="0" role="article" aria-label="Vídeo: Introdução ao React">
+      <div class="thumb" style="background-image:url('https://i.ytimg.com/vi/Ke90Tje7VS0/hqdefault.jpg');" aria-hidden="true"></div>
+      <div class="video-info">
+        <h3 class="video-title">Introdução ao React para iniciantes</h3>
+        <p class="channel-name">Frontend Master</p>
+        <p class="video-meta">780 mil visualizações • 1 ano atrás</p>
+      </div>
+    </article>
+  </section>
+</main>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc" tabindex="-1">
+  <div class="modal" role="document">
+    <button class="close-btn" aria-label="Fechar modal" id="closeModalBtn">&times;</button>
+    <h2 id="modalTitle">Enviar Vídeo</h2>
+    <p id="modalDesc">Preencha o formulário para enviar seu vídeo</p>
+    <form id="videoForm">
+      <label for="videoTitle">Título do vídeo</label>
+      <input type="text" id="videoTitle" name="videoTitle" required placeholder="Digite o título" />
+
+      <label for="videoUrl">URL do vídeo</label>
+      <input type="url" id="videoUrl" name="videoUrl" required placeholder="https://exemplo.com" />
+
+      <label for="videoDescription">Descrição</label>
+      <textarea id="videoDescription" name="videoDescription" rows="4" placeholder="Descrição do vídeo"></textarea>
+
+      <button type="submit" class="submit-btn">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const openModalBtn = document.getElementById('openModalBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const modal = document.getElementById('modal');
+  const videoForm = document.getElementById('videoForm');
+
+  // Abrir modal
+  openModalBtn.addEventListener('click', () => {
+    modal.classList.add('active');
+    modal.style.display = 'flex';
+    modal.focus();
+  });
+
+  // Fechar modal
+  function closeModal() {
+    modal.classList.remove('active');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300); // tempo da animação
+  }
+
+  closeModalBtn.addEventListener('click', closeModal);
+
+  // Fechar modal ao clicar fora do conteúdo
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Fechar modal com ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Exemplo de submissão do formulário (só previne e limpa)
+  videoForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Vídeo enviado com sucesso! (simulação)');
+    videoForm.reset();
+    closeModal();
+  });
+</script>
+
+</body>
+</html>
